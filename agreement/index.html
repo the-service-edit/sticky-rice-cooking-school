@@ -347,6 +347,7 @@ body{margin:0}
     slot.appendChild(document.getElementById('tpl-' + (p === 'client' ? 'client' : 'tse')).content.cloneNode(true));
     var pre = p === 'client' ? 'c' : 't';
     var cv = document.getElementById(pre + '-pad'), ctx = cv.getContext('2d'), drawing = false, last = null, inked = false, typedSig = false;
+    var typing = Promise.resolve();
     var err = slot.querySelector('.err');
     function size(){
       var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
@@ -361,7 +362,8 @@ body{margin:0}
     ['pointerup','pointercancel'].forEach(function(ev){ cv.addEventListener(ev, function(){ drawing = false; }); });
     window.addEventListener('resize', function(){ if (!inked) size(); });
     slot.querySelector('[data-clear]').addEventListener('click', size);
-    slot.querySelector('[data-type]').addEventListener('click', async function(){
+    slot.querySelector('[data-type]').addEventListener('click', function(){ typing = typeIt(); });
+    async function typeIt(){
       var n = document.getElementById(pre + '-name').value.trim();
       if (!n){ err.textContent = 'Add your full name first, then tap Type it instead.'; return; }
       err.textContent = '';
@@ -370,9 +372,10 @@ body{margin:0}
       var r = cv.getBoundingClientRect();
       ctx.fillStyle = '#1B1512'; ctx.font = "28px 'Homemade Apple', cursive"; ctx.textBaseline = 'middle';
       ctx.fillText(n, 16, r.height / 2, r.width - 32); inked = true; typedSig = true;
-    });
+    }
     var btn = slot.querySelector('[data-sign]');
     btn.addEventListener('click', async function(){
+      await typing;
       var name = document.getElementById(pre + '-name').value.trim();
       var role = document.getElementById(pre + '-role').value.trim();
       var entity = p === 'client' ? document.getElementById('c-entity').value.trim() : '';
