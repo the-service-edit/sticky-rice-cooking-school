@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Email Plan: Sticky Rice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* TSE planning page: brown header band, the month's plan, a short check-in, email cards for approval, results. */
+:root{
+  --paper:#F7F4EC; --ink:#1B1512; --brown:#3A2E25; --off:#F1EDE2; --mute:#6B5F54; --line:#DED6C8;
+  --card:#FFFDF8; --field:#FFFFFF; --fill:#F3E3C4; --fill-ink:#6A4512; --ok:#2F6B45; --ok-bg:#E4F0E6;
+  --warn:#8A2A1C; --warn-bg:#F6DCD6; --band-text:#E6DFD2;
+  --sans:Geist,'Helvetica Neue',Arial,sans-serif; --mono:'Geist Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{background:var(--brown);color:var(--off)}
+.status{font-size:14px;font-weight:500}
+.status .wrap{padding-block:11px;display:flex;gap:8px 18px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.status[data-s="wait"]{background:var(--fill);color:var(--fill-ink)}
+.status[data-s="done"]{background:var(--ok-bg);color:var(--ok)}
+.status[data-s="err"]{background:var(--warn-bg);color:var(--warn)}
+header .wrap{padding-block:28px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:36px}
+.top small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--band-text)}
+.mark{font-weight:700;font-size:13px;line-height:1.05;letter-spacing:-.02em;text-align:center;color:var(--off)}
+h1{margin:0;font-size:clamp(32px,6vw,54px);line-height:1;letter-spacing:-.03em;text-transform:uppercase;font-weight:600;text-wrap:balance}
+header p{margin:14px 0 0;max-width:60ch;color:var(--band-text);font-size:17px}
+.steps{margin-top:26px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(241,237,226,.18);border-radius:10px;overflow:hidden}
+.steps a{background:var(--brown);padding:12px 14px;color:var(--off);text-decoration:none;font-size:14px;min-width:0}
+.steps a:hover{background:#45372C}
+.steps b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--band-text)}
+main .wrap{padding-block:40px 70px;display:grid;grid-template-columns:minmax(0,1fr);gap:56px}
+main .wrap > *{min-width:0}
+h2{margin:0 0 6px;font-size:clamp(24px,3vw,30px);letter-spacing:-.02em;font-weight:600;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--mute);font-weight:500}
+.lead{margin:0 0 20px;color:var(--mute);max-width:66ch}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:99px;padding:3px 10px;letter-spacing:0;vertical-align:3px;white-space:nowrap}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.wait{background:var(--fill);color:var(--fill-ink)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.tag.plain{background:var(--off);color:var(--mute);border:1px solid var(--line)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+/* plan */
+.sends{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.send{background:var(--card);display:grid;grid-template-columns:130px minmax(0,1fr) minmax(0,1.2fr);gap:18px;padding:16px 18px;align-items:start}
+.send .when{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.send .when b{display:block;font-family:var(--sans);font-size:17px;color:var(--ink);letter-spacing:-.01em}
+.send h3{margin:0 0 2px;font-size:17px;letter-spacing:-.01em}
+.send .goal{font-size:14px;color:var(--mute)}
+.send .angle{font-size:15px}
+.send .angle span{display:block;font-size:13px;color:var(--mute);margin-top:4px}
+.note{font-size:13px;color:var(--mute);margin-top:12px}
+/* forms */
+label{display:grid;gap:6px;font-size:15px;font-weight:500}
+label small{font-weight:400;color:var(--mute);font-size:13px}
+input[type=text],textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+textarea{min-height:84px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible,.choice:focus-within{outline:2px solid var(--ink);outline-offset:2px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.choice span{display:block;border:1px solid var(--line);background:var(--field);border-radius:99px;padding:8px 14px;font-size:14px;font-weight:500}
+.choice input:checked + span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+legend{font-size:15px;font-weight:500;padding:0;margin-bottom:8px}
+.form{display:grid;gap:18px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:99px;padding:10px 18px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--paper)}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button.okb{background:var(--ok);border-color:var(--ok)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.err{color:var(--warn);font-size:13px;min-height:1em}
+.saved{font-size:13px;color:var(--ok)}
+.whoami{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.whoami label{flex:1 1 240px}
+.ro .respond{display:none!important}
+/* emails */
+.emails{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;display:grid;gap:14px}
+.ecard .k{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.ecard h3{margin:0;font-size:20px;letter-spacing:-.02em;line-height:1.2}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0}
+.meta dt{color:var(--mute)}
+.meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.viewer{background:#111;border-radius:30px;padding:10px;overflow:hidden}
+.viewer .frame{width:100%;height:640px;overflow:hidden;border-radius:22px;background:#fff;position:relative}
+.viewer iframe{display:block;border:0;background:#fff;transform-origin:0 0;height:640px;width:100%}
+.viewer .hint{color:#bbb;font-size:12px;text-align:center;padding:8px 0 2px}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.toggle button{border:0;border-radius:0;background:transparent;color:var(--ink);padding:6px 12px;font-size:13px}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.flag{font-size:13px;background:var(--fill);color:var(--fill-ink);border-radius:8px;padding:9px 11px}
+.history{display:grid;gap:8px;font-size:14px}
+.history div{border-left:3px solid var(--line);padding:2px 0 2px 10px}
+.history .a{border-color:var(--ok)}
+.history .c{border-color:#C07A2B}
+.history time{display:block;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.pending{border:1px dashed var(--line);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;color:var(--mute);font-size:15px;min-width:0}
+.pending h3{margin:0;font-size:20px;color:var(--ink);letter-spacing:-.02em}
+/* results */
+table{width:100%;border-collapse:collapse;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600;background:var(--off)}
+td.num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:14px}
+tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto;border-radius:12px}
+.target{display:flex;gap:20px;flex-wrap:wrap;align-items:baseline;margin-bottom:14px}
+.target b{font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.target span{color:var(--mute);font-size:14px}
+footer .wrap{padding-block:28px;font-size:14px;color:var(--band-text);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:980px){.emails{grid-template-columns:1fr;max-width:460px;margin:0 auto;width:100%}}
+@media (max-width:720px){
+  .steps{grid-template-columns:1fr 1fr}
+  .send{grid-template-columns:1fr;gap:6px}
+  .send .when b{display:inline;margin-right:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body class="ro">
+
+<div class="status" id="status" data-s="wait" role="status"><div class="wrap"><span id="status-text">Loading your plan</span></div></div>
+
+<header class="band"><div class="wrap">
+  <div class="top"><small>Prepared for Sticky Rice Cooking School</small><div class="mark">THE<br>SERVICE<br>EDIT</div></div>
+  <h1>Your email plan</h1>
+  <p>Everything for your email marketing in one place: what's going out and when, a few quick questions for you, each email for your OK, and what it brought in. Your answers come straight to me.</p>
+  <nav class="steps" aria-label="Sections">
+    <a href="#plan"><b>01</b>November's plan</a>
+    <a href="#checkin"><b>02</b>Quick check-in</a>
+    <a href="#emails"><b>03</b>Emails for your OK</a>
+    <a href="#results"><b>04</b>Results</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+
+<div class="panel respond whoami" id="who">
+  <label for="who-name">Your name<small>So I know who's answering. This browser remembers it.</small><input type="text" id="who-name" autocomplete="name" placeholder="e.g. Claire Fuller"></label>
+</div>
+
+<section id="plan" aria-labelledby="plan-h">
+  <h2 id="plan-h"><span class="n">01</span>November's plan <span class="tag ok">On results</span></h2>
+  <p class="lead">Four campaigns plus your welcome email. Dates are my suggestion; we'll lock them in once I'm set up in GoHighLevel.</p>
+  <div class="sends">
+    <div class="send">
+      <div class="when"><b>First</b>always on</div>
+      <div><h3>Welcome email</h3><div class="goal">Turn every new sign-up into a first booking</div></div>
+      <div class="angle">Your story, the Wall of Fame chefs and the class calendar, sent automatically the moment someone joins.<span>Goes to: every new newsletter sign-up</span></div>
+    </div>
+    <div class="send">
+      <div class="when"><b>Tue 11 Nov</b>proposed</div>
+      <div><h3>Christmas vouchers</h3><div class="goal">Voucher sales at every budget</div></div>
+      <div class="angle">From a $185 class to Cook and Stay, sold early while people are starting their Christmas lists.<span>Goes to: your opted-in list</span></div>
+    </div>
+    <div class="send">
+      <div class="when"><b>Tue 18 Nov</b>proposed</div>
+      <div><h3>Last seats this year</h3><div class="goal">Fill the classes left before the break</div></div>
+      <div class="angle">The remaining classes with seats, plus January dates so the new year starts booked.<span>Goes to: your opted-in list</span></div>
+    </div>
+    <div class="send">
+      <div class="when"><b>Tue 25 Nov</b>proposed</div>
+      <div><h3>The bigger gift</h3><div class="goal">Second gifting send, higher value</div></div>
+      <div class="angle">Cook and Stay, the Private Chef package and your MICHELIN Key villas, for the people buying something special.<span>Goes to: your opted-in list</span></div>
+    </div>
+    <div class="send">
+      <div class="when"><b>Sun 30 Nov</b>proposed</div>
+      <div><h3>January classes</h3><div class="goal">Book the new year before the holidays</div></div>
+      <div class="angle">Start 2027 at the wok: January's classes, with a gentle voucher reminder for anyone still shopping.<span>Goes to: your opted-in list</span></div>
+    </div>
+  </div>
+  <div class="respond" style="margin-top:16px">
+    <div class="row">
+      <button type="button" class="okb" id="plan-ok">This plan looks good</button>
+      <button type="button" class="ghost" id="plan-note-btn" aria-expanded="false" aria-controls="plan-note-box">Suggest a change</button>
+      <span class="saved" id="plan-saved"></span>
+    </div>
+    <div id="plan-note-box" hidden style="margin-top:12px;display:grid;gap:10px;max-width:640px">
+      <label for="plan-note">What would you change?<textarea id="plan-note" placeholder="e.g. Lead with the Private Chef package on 25 Nov"></textarea></label>
+      <div class="row"><button type="button" id="plan-note-send">Send to Mel</button></div>
+    </div>
+    <div class="err" id="plan-err" role="alert"></div>
+  </div>
+  <div class="history" id="hist-plan" style="margin-top:12px"></div>
+</section>
+
+<section id="checkin" aria-labelledby="checkin-h">
+  <h2 id="checkin-h"><span class="n">02</span>Quick check-in</h2>
+  <p class="lead">Five questions, a couple of minutes. Skip anything that doesn't apply.</p>
+  <div class="panel">
+    <form class="form" id="checkin-form">
+      <fieldset>
+        <legend>What should we push hardest this month?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="push" value="Christmas vouchers"><span>Christmas vouchers</span></label>
+          <label class="choice"><input type="radio" name="push" value="Filling this year's classes"><span>Filling this year's classes</span></label>
+          <label class="choice"><input type="radio" name="push" value="Cook and Stay and villas"><span>Cook and Stay and villas</span></label>
+          <label class="choice"><input type="radio" name="push" value="January classes"><span>January classes</span></label>
+        </div>
+      </fieldset>
+      <label for="q-dates">Any dates I need to work around?<small>Voucher postage cut-off, your last class before the break, days you're closed.</small><textarea id="q-dates" name="dates"></textarea></label>
+      <label for="q-seats">Which classes most need filling?<small>Name them and I'll lead with those.</small><textarea id="q-seats" name="seats"></textarea></label>
+      <label for="q-new">Anything new to mention?<small>A new class, chef visit, menu or award.</small><textarea id="q-new" name="news"></textarea></label>
+      <label for="q-avoid">Anything we shouldn't push or say?<textarea id="q-avoid" name="avoid"></textarea></label>
+      <label for="q-photos">New photos?<small>Paste a Google Drive or Dropbox link, or reply to my email with them attached.</small><input type="text" id="q-photos" name="photos" inputmode="url"></label>
+      <div class="respond row"><button type="submit" id="checkin-send">Send my answers</button><span class="saved" id="checkin-saved"></span></div>
+      <div class="err" id="checkin-err" role="alert"></div>
+    </form>
+  </div>
+</section>
+
+<section id="emails" aria-labelledby="emails-h">
+  <h2 id="emails-h"><span class="n">03</span>Emails for your OK</h2>
+  <p class="lead">Nothing goes to your list until you approve it. Read each one on phone or desktop, then approve it or tell me what to change. Approving here is the same as replying "approved" to my email.</p>
+  <div class="emails" id="email-cards"></div>
+</section>
+
+<section id="results" aria-labelledby="results-h">
+  <h2 id="results-h"><span class="n">04</span>Results</h2>
+  <p class="lead">Added about a week after each send. Sales and bookings come from the tracked links and email code, checked against your own booking system.</p>
+  <div class="target"><div><b>$750</b> <span>November target. Above this, November's fee applies. Below it, November is free.</span></div></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Opened</th><th scope="col">Clicked</th><th scope="col">Bookings and vouchers</th></tr></thead>
+    <tbody>
+      <tr><td>Welcome email</td><td colspan="4" style="color:var(--mute)">Not live yet</td></tr>
+      <tr><td>Christmas vouchers</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Last seats this year</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>The bigger gift</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>January classes</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div></main>
+
+<footer class="band"><div class="wrap"><span>Mel Cox · The Service Edit · Perth, WA</span><span>hello@theserviceedit.com · theserviceedit.com</span></div></footer>
+
+<script>
+(function(){
+  var EP = 'https://rxwjactnfsrakpagbiit.supabase.co/functions/v1/plan';
+  var PLAN = 'sticky-rice-cooking-school';
+  var EMAILS = [
+    {id:'welcome', kicker:'Always on', title:'Welcome email', file:'e-welcome.html',
+     subject:'Welcome to Sticky Rice Cooking School', preheader:'Here is where it all began, back in 2008.',
+     audience:'Every new newsletter sign-up', when:'Goes live first'},
+    {id:'vouchers', kicker:'Tue 11 Nov', title:'Christmas vouchers', file:'e-vouchers.html',
+     subject:"The gift that's a whole day out", preheader:'Class vouchers from $185, any amount you like, or Cook and Stay packages from $875 per couple.',
+     audience:'Your opted-in list', when:'Tue 11 Nov, proposed'},
+    {id:'last-seats', kicker:'Tue 18 Nov', title:'Last seats this year', file:'e-last-seats.html',
+     subject:'Last seats in November', preheader:'Here is what is left in November, and what is new for January.',
+     audience:'Your opted-in list', when:'Tue 18 Nov, proposed',
+     flag:'Classes and seat counts are refreshed from your booking page the day before this goes out.'}
+  ];
+  var LATER = [
+    {title:'The bigger gift', when:'Tue 25 Nov, proposed', text:"Being built. It'll be here for your OK by Thu 20 Nov."},
+    {title:'January classes', when:'Sun 30 Nov, proposed', text:"Being built. It'll be here for your OK by Wed 26 Nov."}
+  ];
+
+  var q = new URLSearchParams(location.search);
+  var key = (q.get('k') || '').toLowerCase();
+  if (!/^[a-z0-9]{16,40}$/.test(key)) key = '';
+  var party = '', responses = [];
+  var statusEl = document.getElementById('status'), statusText = document.getElementById('status-text');
+  function setStatus(s, t){ statusEl.dataset.s = s; statusText.textContent = t; }
+  function fmt(iso){ return new Date(iso).toLocaleString('en-AU', {weekday:'short', day:'numeric', month:'short', hour:'numeric', minute:'2-digit'}); }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  var nameIn = document.getElementById('who-name');
+  try{ nameIn.value = localStorage.getItem('tse_plan_name') || ''; }catch(e){}
+  nameIn.addEventListener('change', function(){ try{ localStorage.setItem('tse_plan_name', nameIn.value.trim()); }catch(e){} });
+  function needName(errEl){
+    var n = nameIn.value.trim();
+    if (n.length < 2){ errEl.textContent = 'Add your name at the top of the page first.'; nameIn.focus(); return ''; }
+    try{ localStorage.setItem('tse_plan_name', n); }catch(e){}
+    return n;
+  }
+
+  async function post(kind, item, body, errEl){
+    var name = needName(errEl); if (!name) return false;
+    errEl.textContent = '';
+    try{
+      var r = await fetch(EP + '/r', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:PLAN, k:key, kind:kind, item:item, name:name, body:body})});
+      var j = await r.json().catch(function(){ return {}; });
+      if (!r.ok || !j.ok) throw new Error(j.error || 'server');
+      await load();
+      return true;
+    }catch(e){
+      errEl.textContent = "That didn't save. Check your connection and try again, or email hello@theserviceedit.com.";
+      return false;
+    }
+  }
+
+  /* email cards */
+  var cards = document.getElementById('email-cards');
+  EMAILS.forEach(function(m){
+    var c = el('article', 'ecard'); c.id = 'email-' + m.id;
+    var k = el('div', 'k'); k.appendChild(el('span', '', m.kicker)); var st = el('span', 'tag wait', 'Draft for your OK'); st.dataset.role = 'status'; k.appendChild(st); c.appendChild(k);
+    c.appendChild(el('h3', '', m.title));
+    var dl = el('dl', 'meta');
+    [['Subject', m.subject], ['Preview', m.preheader], ['Goes to', m.audience], ['Sends', m.when]].forEach(function(p){ dl.appendChild(el('dt', '', p[0])); dl.appendChild(el('dd', '', p[1])); });
+    c.appendChild(dl);
+    var tg = el('div', 'toggle'); tg.setAttribute('role', 'group'); tg.setAttribute('aria-label', 'Preview size');
+    var bp = el('button', '', 'Phone'), bd = el('button', '', 'Desktop'); bp.type = bd.type = 'button';
+    bp.setAttribute('aria-pressed', 'true'); bd.setAttribute('aria-pressed', 'false'); tg.appendChild(bp); tg.appendChild(bd);
+    var tr = el('div', 'row'); tr.appendChild(tg); c.appendChild(tr);
+    var v = el('div', 'viewer'), fr = el('div', 'frame'), ifr = document.createElement('iframe');
+    ifr.title = m.title + ' email preview'; ifr.loading = 'lazy'; ifr.src = m.file;
+    fr.appendChild(ifr); v.appendChild(fr); v.appendChild(el('div', 'hint', 'Scroll inside to see the whole email')); c.appendChild(v);
+    var mode = 'phone';
+    function fit(){
+      var w = fr.clientWidth, base = mode === 'desktop' ? 600 : 390;
+      if (w && w < base){ var s = w / base; ifr.style.width = base + 'px'; ifr.style.height = (640 / s) + 'px'; ifr.style.transform = 'scale(' + s + ')'; }
+      else { ifr.style.width = '100%'; ifr.style.height = '640px'; ifr.style.transform = ''; }
+    }
+    bp.addEventListener('click', function(){ mode = 'phone'; bp.setAttribute('aria-pressed','true'); bd.setAttribute('aria-pressed','false'); fit(); });
+    bd.addEventListener('click', function(){ mode = 'desktop'; bd.setAttribute('aria-pressed','true'); bp.setAttribute('aria-pressed','false'); fit(); });
+    window.addEventListener('resize', fit); ifr.addEventListener('load', fit); requestAnimationFrame(fit);
+    if (m.flag) c.appendChild(el('div', 'flag', m.flag));
+    var resp = el('div', 'respond'); resp.style.display = 'grid'; resp.style.gap = '10px';
+    var row = el('div', 'row');
+    var ba = el('button', 'okb', 'Approve'), bc = el('button', 'ghost', 'Ask for changes'); ba.type = bc.type = 'button';
+    bc.setAttribute('aria-expanded', 'false');
+    row.appendChild(ba); row.appendChild(bc); resp.appendChild(row);
+    var box = el('div'); box.hidden = true; box.style.display = 'none';
+    var lab = el('label', '', 'What should change?'); var ta = document.createElement('textarea'); ta.id = 'chg-' + m.id;
+    ta.placeholder = 'e.g. Swap the top photo for one of the villas'; lab.setAttribute('for', ta.id); lab.appendChild(ta); box.appendChild(lab);
+    var bs = el('button', '', 'Send changes to Mel'); bs.type = 'button'; var r2 = el('div', 'row'); r2.style.marginTop = '8px'; r2.appendChild(bs); box.appendChild(r2);
+    resp.appendChild(box);
+    var err = el('div', 'err'); err.setAttribute('role', 'alert'); resp.appendChild(err);
+    c.appendChild(resp);
+    var hist = el('div', 'history'); hist.dataset.item = m.id; c.appendChild(hist);
+    ba.addEventListener('click', async function(){ ba.disabled = true; await post('approve', m.id, {label: m.title}, err); ba.disabled = false; });
+    bc.addEventListener('click', function(){ var open = box.hidden; box.hidden = !open; box.style.display = open ? 'block' : 'none'; bc.setAttribute('aria-expanded', String(open)); if (open) ta.focus(); });
+    bs.addEventListener('click', async function(){
+      var t = ta.value.trim(); if (t.length < 3){ err.textContent = 'Tell me what to change first.'; return; }
+      bs.disabled = true; if (await post('changes', m.id, {label: m.title, note: t}, err)){ ta.value = ''; box.hidden = true; box.style.display = 'none'; bc.setAttribute('aria-expanded','false'); } bs.disabled = false;
+    });
+    cards.appendChild(c);
+  });
+  LATER.forEach(function(m){
+    var p = el('div', 'pending'); var t = el('div', 'row'); t.appendChild(el('span', 'tag plain', m.when)); p.appendChild(t);
+    p.appendChild(el('h3', '', m.title)); p.appendChild(el('div', '', m.text)); cards.appendChild(p);
+  });
+
+  /* plan buttons */
+  var planErr = document.getElementById('plan-err'), noteBox = document.getElementById('plan-note-box'), noteBtn = document.getElementById('plan-note-btn');
+  noteBox.style.display = 'none';
+  noteBtn.addEventListener('click', function(){ var open = noteBox.hidden; noteBox.hidden = !open; noteBox.style.display = open ? 'grid' : 'none'; noteBtn.setAttribute('aria-expanded', String(open)); if (open) document.getElementById('plan-note').focus(); });
+  document.getElementById('plan-ok').addEventListener('click', async function(){ this.disabled = true; await post('plan_ok', 'plan', {note:'Plan looks good'}, planErr); this.disabled = false; });
+  document.getElementById('plan-note-send').addEventListener('click', async function(){
+    var t = document.getElementById('plan-note').value.trim(); if (t.length < 3){ planErr.textContent = 'Write your suggestion first.'; return; }
+    this.disabled = true; if (await post('plan_note', 'plan', {note:t}, planErr)){ document.getElementById('plan-note').value = ''; noteBox.hidden = true; noteBox.style.display = 'none'; } this.disabled = false;
+  });
+
+  /* check-in */
+  var form = document.getElementById('checkin-form'), ckErr = document.getElementById('checkin-err');
+  var QS = {push:'Push hardest', dates:'Dates to work around', seats:'Classes to fill', news:'New to mention', avoid:"Don't push", photos:'Photos'};
+  form.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    var fd = new FormData(form), answers = {}, any = false;
+    Object.keys(QS).forEach(function(k){ var v = String(fd.get(k) || '').trim(); if (v){ answers[QS[k]] = v; any = true; } });
+    if (!any){ ckErr.textContent = 'Answer at least one question first.'; return; }
+    var b = document.getElementById('checkin-send'); b.disabled = true;
+    await post('checkin', 'checkin', {answers: answers}, ckErr);
+    b.disabled = false;
+  });
+  function fillCheckin(ans){
+    var rev = {}; Object.keys(QS).forEach(function(k){ rev[QS[k]] = k; });
+    Object.keys(ans || {}).forEach(function(label){
+      var n = rev[label]; if (!n) return;
+      var f = form.elements[n]; if (!f) return;
+      if (f instanceof RadioNodeList){ Array.prototype.forEach.call(f, function(r){ r.checked = r.value === ans[label]; }); }
+      else f.value = ans[label];
+    });
+  }
+
+  /* render responses */
+  function render(){
+    var mine = responses.filter(function(r){ return party === 'tse' || r.party === 'client'; });
+    var hp = document.getElementById('hist-plan'); hp.innerHTML = '';
+    mine.filter(function(r){ return r.item === 'plan'; }).forEach(function(r){
+      var d = el('div', r.kind === 'plan_ok' ? 'a' : 'c');
+      d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
+      d.appendChild(el('span', '', r.kind === 'plan_ok' ? r.name + ' said the plan looks good' : r.name + ': ' + ((r.body && r.body.note) || '')));
+      hp.appendChild(d);
+    });
+    var ck = mine.filter(function(r){ return r.kind === 'checkin'; }).pop();
+    var cs = document.getElementById('checkin-saved');
+    if (ck){ fillCheckin(ck.body && ck.body.answers); cs.textContent = 'Sent by ' + ck.name + ', ' + fmt(ck.at) + '. Change anything and send again.'; document.getElementById('checkin-send').textContent = 'Update my answers'; }
+    else cs.textContent = '';
+    EMAILS.forEach(function(m){
+      var card = document.getElementById('email-' + m.id), h = card.querySelector('.history'), st = card.querySelector('[data-role=status]');
+      var rs = mine.filter(function(r){ return r.item === m.id; });
+      h.innerHTML = '';
+      rs.forEach(function(r){
+        var d = el('div', r.kind === 'approve' ? 'a' : 'c');
+        d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
+        d.appendChild(el('span', '', r.kind === 'approve' ? 'Approved by ' + r.name : r.name + ' asked for changes: ' + ((r.body && r.body.note) || '')));
+        h.appendChild(d);
+      });
+      var last = rs[rs.length - 1];
+      if (!last){ st.className = 'tag wait'; st.textContent = 'Draft for your OK'; }
+      else if (last.kind === 'approve'){ st.className = 'tag ok'; st.textContent = 'Approved'; }
+      else { st.className = 'tag warn'; st.textContent = 'Changes asked for'; }
+    });
+  }
+
+  async function load(){
+    if (!key){
+      document.body.classList.add('ro');
+      setStatus('wait', 'Read-only copy. Open this page from the link in your email to answer and approve.');
+      return;
+    }
+    try{
+      var r = await fetch(EP + '/s?id=' + PLAN + '&k=' + encodeURIComponent(key), {cache:'no-store'});
+      var j = await r.json();
+      if (!r.ok || j.error) throw new Error(j.error || 'server');
+      party = j.party; responses = j.responses || [];
+    }catch(e){
+      document.body.classList.add('ro');
+      setStatus('err', (e && e.message === 'bad_key') ? "This link isn't valid. Use the link from your email, or write to hello@theserviceedit.com." : "Your plan couldn't load. Refresh the page to try again.");
+      return;
+    }
+    document.body.classList.remove('ro');
+    render();
+    var waiting = EMAILS.filter(function(m){ var rs = responses.filter(function(x){ return x.item === m.id && (party === 'tse' || x.party === 'client'); }); return !rs.length || rs[rs.length-1].kind !== 'approve'; }).length;
+    if (party === 'tse') setStatus('wait', 'Viewing as The Service Edit. Anything you send here is marked as a TSE test.');
+    else if (waiting) setStatus('wait', waiting + (waiting === 1 ? ' email is' : ' emails are') + ' waiting for your OK.');
+    else setStatus('done', "You're all caught up. Thanks.");
+  }
+  load();
+})();
+</script>
+</body>
+</html>
