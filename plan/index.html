@@ -130,14 +130,14 @@ html{scroll-behavior:smooth}
 <div class="status" id="status" data-s="wait" role="status"><div class="wrap"><span id="status-text">Loading your plan</span></div></div>
 
 <header class="band"><div class="wrap">
-  <div class="top"><small>Prepared for Sticky Rice Cooking School</small><div class="mark">THE<br>SERVICE<br>EDIT</div></div>
+  <div class="top"><small>Prepared for Sticky Rice Cooking School &amp; Villas</small><div class="mark">THE<br>SERVICE<br>EDIT</div></div>
   <h1>Your email plan</h1>
-  <p>Everything for your email marketing in one place: what's going out and when, a few quick questions for you, each email for your OK, and what it brought in. Your answers come straight to me.</p>
+  <p>Everything for your email marketing in one place: what's going out and when, a few quick questions for you, each email for your OK, and what it brought in, across the cooking school and the villas. Your answers and notes come straight to me.</p>
   <nav class="steps" aria-label="Sections">
     <a href="#plan"><b>01</b>November's plan</a>
     <a href="#checkin"><b>02</b>Quick check-in</a>
     <a href="#emails"><b>03</b>Emails for your OK</a>
-    <a href="#results"><b>04</b>Results</a>
+    <a href="#results"><b>04</b>Results and notes</a>
   </nav>
 </div></header>
 
@@ -149,43 +149,40 @@ html{scroll-behavior:smooth}
 
 <section id="plan" aria-labelledby="plan-h">
   <h2 id="plan-h"><span class="n">01</span>November's plan <span class="tag ok">On results</span></h2>
-  <p class="lead">Four campaigns plus your welcome email. Dates are my suggestion; we'll lock them in once I'm set up in GoHighLevel.</p>
+  <p class="lead">Four campaigns plus your welcome email, across the cooking school and the villas. Dates are my suggestion; we'll lock them in once I'm set up in GoHighLevel.</p>
   <div class="sends">
     <div class="send">
       <div class="when"><b>First</b>always on</div>
-      <div><h3>Welcome email</h3><div class="goal">Turn every new sign-up into a first booking</div></div>
-      <div class="angle">Your story, the Wall of Fame chefs and the class calendar, sent automatically the moment someone joins.<span>Goes to: every new newsletter sign-up</span></div>
+      <div><h3>Welcome email</h3><div class="goal">Turn every new sign-up into a first booking</div><span class="tag wait" style="margin-top:6px">School + villas</span></div>
+      <div class="angle">Your story, the Wall of Fame chefs and the class calendar, with the villas one click away, sent automatically the moment someone joins.<span>Goes to: Every new newsletter sign-up</span></div>
     </div>
     <div class="send">
       <div class="when"><b>Tue 11 Nov</b>proposed</div>
-      <div><h3>Christmas vouchers</h3><div class="goal">Voucher sales at every budget</div></div>
-      <div class="angle">From a $185 class to Cook and Stay, sold early while people are starting their Christmas lists.<span>Goes to: your opted-in list</span></div>
+      <div><h3>Christmas vouchers</h3><div class="goal">Voucher sales at every budget</div><span class="tag wait" style="margin-top:6px">School + villas</span></div>
+      <div class="angle">From a $185 class to Cook and Stay, sold early while people are starting their Christmas lists.<span>Goes to: Your opted-in list</span></div>
     </div>
     <div class="send">
       <div class="when"><b>Tue 18 Nov</b>proposed</div>
-      <div><h3>Last seats this year</h3><div class="goal">Fill the classes left before the break</div></div>
-      <div class="angle">The remaining classes with seats, plus January dates so the new year starts booked.<span>Goes to: your opted-in list</span></div>
+      <div><h3>Last seats this year</h3><div class="goal">Fill the classes left before the break</div><span class="tag plain" style="margin-top:6px">School</span></div>
+      <div class="angle">The classes that still have seats before the Christmas break.<span>Goes to: Your opted-in list</span></div>
     </div>
     <div class="send">
       <div class="when"><b>Tue 25 Nov</b>proposed</div>
-      <div><h3>The bigger gift</h3><div class="goal">Second gifting send, higher value</div></div>
-      <div class="angle">Cook and Stay, the Private Chef package and your MICHELIN Key villas, for the people buying something special.<span>Goes to: your opted-in list</span></div>
+      <div><h3>The bigger gift</h3><div class="goal">Villa stays as the big Christmas gift</div><span class="tag ok" style="margin-top:6px">Villas</span></div>
+      <div class="angle">Cook and Stay, the Private Chef package and your MICHELIN Key villas, for the people buying something special.<span>Goes to: Your opted-in list</span></div>
     </div>
     <div class="send">
       <div class="when"><b>Sun 30 Nov</b>proposed</div>
-      <div><h3>January classes</h3><div class="goal">Book the new year before the holidays</div></div>
-      <div class="angle">Start 2027 at the wok: January's classes, with a gentle voucher reminder for anyone still shopping.<span>Goes to: your opted-in list</span></div>
+      <div><h3>Start the year in the Hills</h3><div class="goal">January classes and midweek stays</div><span class="tag wait" style="margin-top:6px">School + villas</span></div>
+      <div class="angle">January's class calendar, plus midweek villa escapes for the quiet weeks after the holidays.<span>Goes to: Your opted-in list</span></div>
     </div>
   </div>
-  <div class="respond" style="margin-top:16px">
+  <p class="note">Coming in December: four more sends built around your voucher cut-offs and the last classes of the year. If the villas are open over the class break, one of them will be about filling those nights.</p>
+  <div class="respond panel" style="margin-top:16px;display:grid;gap:12px">
+    <label for="plan-note">Notes or changes to the plan<small>Optional. Anything to swap, add or move.</small><textarea id="plan-note" placeholder="e.g. Lead with the Private Chef package on 25 Nov"></textarea></label>
     <div class="row">
       <button type="button" class="okb" id="plan-ok">This plan looks good</button>
-      <button type="button" class="ghost" id="plan-note-btn" aria-expanded="false" aria-controls="plan-note-box">Suggest a change</button>
-      <span class="saved" id="plan-saved"></span>
-    </div>
-    <div id="plan-note-box" hidden style="margin-top:12px;display:grid;gap:10px;max-width:640px">
-      <label for="plan-note">What would you change?<textarea id="plan-note" placeholder="e.g. Lead with the Private Chef package on 25 Nov"></textarea></label>
-      <div class="row"><button type="button" id="plan-note-send">Send to Mel</button></div>
+      <button type="button" class="ghost" id="plan-note-send">Send my notes</button>
     </div>
     <div class="err" id="plan-err" role="alert"></div>
   </div>
@@ -194,7 +191,7 @@ html{scroll-behavior:smooth}
 
 <section id="checkin" aria-labelledby="checkin-h">
   <h2 id="checkin-h"><span class="n">02</span>Quick check-in</h2>
-  <p class="lead">Five questions, a couple of minutes. Skip anything that doesn't apply.</p>
+  <p class="lead">Six questions, a couple of minutes. Skip anything that doesn't apply.</p>
   <div class="panel">
     <form class="form" id="checkin-form">
       <fieldset>
@@ -202,13 +199,15 @@ html{scroll-behavior:smooth}
         <div class="choices">
           <label class="choice"><input type="radio" name="push" value="Christmas vouchers"><span>Christmas vouchers</span></label>
           <label class="choice"><input type="radio" name="push" value="Filling this year's classes"><span>Filling this year's classes</span></label>
-          <label class="choice"><input type="radio" name="push" value="Cook and Stay and villas"><span>Cook and Stay and villas</span></label>
+          <label class="choice"><input type="radio" name="push" value="Villa stays"><span>Villa stays</span></label>
+          <label class="choice"><input type="radio" name="push" value="Cook and Stay packages"><span>Cook and Stay packages</span></label>
           <label class="choice"><input type="radio" name="push" value="January classes"><span>January classes</span></label>
         </div>
       </fieldset>
-      <label for="q-dates">Any dates I need to work around?<small>Voucher postage cut-off, your last class before the break, days you're closed.</small><textarea id="q-dates" name="dates"></textarea></label>
+      <label for="q-dates">Any dates I need to work around?<small>Voucher postage cut-off, your last class before the break, whether the villas stay open over the break.</small><textarea id="q-dates" name="dates"></textarea></label>
       <label for="q-seats">Which classes most need filling?<small>Name them and I'll lead with those.</small><textarea id="q-seats" name="seats"></textarea></label>
-      <label for="q-new">Anything new to mention?<small>A new class, chef visit, menu or award.</small><textarea id="q-new" name="news"></textarea></label>
+      <label for="q-villas">Which villa nights most need filling?<small>Midweek, weekends, a particular villa, or the Christmas break.</small><textarea id="q-villas" name="villas"></textarea></label>
+      <label for="q-new">Anything new to mention?<small>A new class, chef visit, menu, package or award.</small><textarea id="q-new" name="news"></textarea></label>
       <label for="q-avoid">Anything we shouldn't push or say?<textarea id="q-avoid" name="avoid"></textarea></label>
       <label for="q-photos">New photos?<small>Paste a Google Drive or Dropbox link, or reply to my email with them attached.</small><input type="text" id="q-photos" name="photos" inputmode="url"></label>
       <div class="respond row"><button type="submit" id="checkin-send">Send my answers</button><span class="saved" id="checkin-saved"></span></div>
@@ -219,7 +218,7 @@ html{scroll-behavior:smooth}
 
 <section id="emails" aria-labelledby="emails-h">
   <h2 id="emails-h"><span class="n">03</span>Emails for your OK</h2>
-  <p class="lead">Nothing goes to your list until you approve it. Read each one on phone or desktop, then approve it or tell me what to change. Approving here is the same as replying "approved" to my email.</p>
+  <p class="lead">Nothing goes to your list until you approve it. Read each one on phone or desktop, write any notes underneath, then approve it or send me your changes. Approving here is the same as replying "approved" to my email.</p>
   <div class="emails" id="email-cards"></div>
 </section>
 
@@ -228,15 +227,26 @@ html{scroll-behavior:smooth}
   <p class="lead">Added about a week after each send. Sales and bookings come from the tracked links and email code, checked against your own booking system.</p>
   <div class="target"><div><b>$750</b> <span>November target. Above this, November's fee applies. Below it, November is free.</span></div></div>
   <div class="tablewrap"><table>
-    <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Opened</th><th scope="col">Clicked</th><th scope="col">Bookings and vouchers</th></tr></thead>
+    <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Opened</th><th scope="col">Clicked</th><th scope="col">Bookings, vouchers and stays</th></tr></thead>
     <tbody>
       <tr><td>Welcome email</td><td colspan="4" style="color:var(--mute)">Not live yet</td></tr>
       <tr><td>Christmas vouchers</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
       <tr><td>Last seats this year</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
       <tr><td>The bigger gift</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
-      <tr><td>January classes</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Start the year in the Hills</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
     </tbody>
   </table></div>
+</section>
+
+<section id="notes" aria-labelledby="notes-h" class="respond">
+  <h2 id="notes-h"><span class="n">05</span>Anything else?</h2>
+  <p class="lead">Ideas, questions, a date that's changed, something you'd love to try. It comes straight to me.</p>
+  <div class="panel" style="display:grid;gap:12px">
+    <label for="gen-note">Your note<textarea id="gen-note" placeholder="e.g. We've added a new class in February"></textarea></label>
+    <div class="row"><button type="button" id="gen-send">Send to Mel</button></div>
+    <div class="err" id="gen-err" role="alert"></div>
+  </div>
+  <div class="history" id="hist-general" style="margin-top:12px"></div>
 </section>
 
 </div></main>
@@ -257,11 +267,14 @@ html{scroll-behavior:smooth}
     {id:'last-seats', kicker:'Tue 18 Nov', title:'Last seats this year', file:'e-last-seats.html',
      subject:'Last seats in November', preheader:'Here is what is left in November, and what is new for January.',
      audience:'Your opted-in list', when:'Tue 18 Nov, proposed',
-     flag:'Classes and seat counts are refreshed from your booking page the day before this goes out.'}
-  ];
-  var LATER = [
-    {title:'The bigger gift', when:'Tue 25 Nov, proposed', text:"Being built. It'll be here for your OK by Thu 20 Nov."},
-    {title:'January classes', when:'Sun 30 Nov, proposed', text:"Being built. It'll be here for your OK by Wed 26 Nov."}
+     flag:'Classes and seat counts are refreshed from your booking page the day before this goes out. The January dates move to the 30 Nov email.'},
+    {id:'bigger-gift', kicker:'Tue 25 Nov', title:'The bigger gift', file:'e-bigger-gift.html',
+     subject:'Give them a night away', preheader:'A class for two, a bottle on arrival and a night in a MICHELIN Key villa, from $875 per couple.',
+     audience:'Your opted-in list', when:'Tue 25 Nov, proposed'},
+    {id:'january', kicker:'Sun 30 Nov', title:'Start the year in the Hills', file:'e-january.html',
+     subject:'Start the year in the Hills', preheader:'January classes are open to book, plus midweek villa stays from $575.',
+     audience:'Your opted-in list', when:'Sun 30 Nov, proposed',
+     flag:'Class dates and seats are checked against your booking page again before this goes out.'}
   ];
 
   var q = new URLSearchParams(location.search);
@@ -328,44 +341,50 @@ html{scroll-behavior:smooth}
     window.addEventListener('resize', fit); ifr.addEventListener('load', fit); requestAnimationFrame(fit);
     if (m.flag) c.appendChild(el('div', 'flag', m.flag));
     var resp = el('div', 'respond'); resp.style.display = 'grid'; resp.style.gap = '10px';
+    var lab = el('label', '', 'Notes or changes'); var ta = document.createElement('textarea'); ta.id = 'note-' + m.id;
+    ta.placeholder = 'Optional. e.g. Swap the top photo for one of the villas'; lab.setAttribute('for', ta.id); lab.appendChild(ta); resp.appendChild(lab);
     var row = el('div', 'row');
-    var ba = el('button', 'okb', 'Approve'), bc = el('button', 'ghost', 'Ask for changes'); ba.type = bc.type = 'button';
-    bc.setAttribute('aria-expanded', 'false');
-    row.appendChild(ba); row.appendChild(bc); resp.appendChild(row);
-    var box = el('div'); box.hidden = true; box.style.display = 'none';
-    var lab = el('label', '', 'What should change?'); var ta = document.createElement('textarea'); ta.id = 'chg-' + m.id;
-    ta.placeholder = 'e.g. Swap the top photo for one of the villas'; lab.setAttribute('for', ta.id); lab.appendChild(ta); box.appendChild(lab);
-    var bs = el('button', '', 'Send changes to Mel'); bs.type = 'button'; var r2 = el('div', 'row'); r2.style.marginTop = '8px'; r2.appendChild(bs); box.appendChild(r2);
-    resp.appendChild(box);
+    var ba = el('button', 'okb', 'Approve'), bs = el('button', 'ghost', 'Send my notes'); ba.type = bs.type = 'button';
+    row.appendChild(ba); row.appendChild(bs); resp.appendChild(row);
+    resp.appendChild(el('div', 'note', 'Approving with a note means "go ahead once that small change is made".'));
     var err = el('div', 'err'); err.setAttribute('role', 'alert'); resp.appendChild(err);
     c.appendChild(resp);
     var hist = el('div', 'history'); hist.dataset.item = m.id; c.appendChild(hist);
-    ba.addEventListener('click', async function(){ ba.disabled = true; ba.textContent = 'Saving…'; await post('approve', m.id, {label: m.title}, err); ba.textContent = 'Approve'; ba.disabled = false; });
-    bc.addEventListener('click', function(){ var open = box.hidden; box.hidden = !open; box.style.display = open ? 'block' : 'none'; bc.setAttribute('aria-expanded', String(open)); if (open) ta.focus(); });
+    ba.addEventListener('click', async function(){
+      ba.disabled = true; ba.textContent = 'Saving…';
+      var t = ta.value.trim();
+      if (await post('approve', m.id, t ? {label: m.title, note: t} : {label: m.title}, err)) ta.value = '';
+      ba.textContent = 'Approve'; ba.disabled = false;
+    });
     bs.addEventListener('click', async function(){
-      var t = ta.value.trim(); if (t.length < 3){ err.textContent = 'Tell me what to change first.'; return; }
-      bs.disabled = true; if (await post('changes', m.id, {label: m.title, note: t}, err)){ ta.value = ''; box.hidden = true; box.style.display = 'none'; bc.setAttribute('aria-expanded','false'); } bs.disabled = false;
+      var t = ta.value.trim(); if (t.length < 3){ err.textContent = 'Write your note first.'; ta.focus(); return; }
+      bs.disabled = true; bs.textContent = 'Sending…';
+      if (await post('changes', m.id, {label: m.title, note: t}, err)) ta.value = '';
+      bs.textContent = 'Send my notes'; bs.disabled = false;
     });
     cards.appendChild(c);
   });
-  LATER.forEach(function(m){
-    var p = el('div', 'pending'); var t = el('div', 'row'); t.appendChild(el('span', 'tag plain', m.when)); p.appendChild(t);
-    p.appendChild(el('h3', '', m.title)); p.appendChild(el('div', '', m.text)); cards.appendChild(p);
-  });
 
-  /* plan buttons */
-  var planErr = document.getElementById('plan-err'), noteBox = document.getElementById('plan-note-box'), noteBtn = document.getElementById('plan-note-btn');
-  noteBox.style.display = 'none';
-  noteBtn.addEventListener('click', function(){ var open = noteBox.hidden; noteBox.hidden = !open; noteBox.style.display = open ? 'grid' : 'none'; noteBtn.setAttribute('aria-expanded', String(open)); if (open) document.getElementById('plan-note').focus(); });
-  document.getElementById('plan-ok').addEventListener('click', async function(){ this.disabled = true; await post('plan_ok', 'plan', {note:'Plan looks good'}, planErr); this.disabled = false; });
+  /* plan and general notes */
+  var planErr = document.getElementById('plan-err'), planNote = document.getElementById('plan-note');
+  document.getElementById('plan-ok').addEventListener('click', async function(){
+    var b = this, t = planNote.value.trim(); b.disabled = true;
+    if (await post('plan_ok', 'plan', {note: t || 'Plan looks good'}, planErr)) planNote.value = '';
+    b.disabled = false;
+  });
   document.getElementById('plan-note-send').addEventListener('click', async function(){
-    var t = document.getElementById('plan-note').value.trim(); if (t.length < 3){ planErr.textContent = 'Write your suggestion first.'; return; }
-    this.disabled = true; if (await post('plan_note', 'plan', {note:t}, planErr)){ document.getElementById('plan-note').value = ''; noteBox.hidden = true; noteBox.style.display = 'none'; } this.disabled = false;
+    var b = this, t = planNote.value.trim(); if (t.length < 3){ planErr.textContent = 'Write your notes first.'; planNote.focus(); return; }
+    b.disabled = true; if (await post('plan_note', 'plan', {note: t}, planErr)) planNote.value = ''; b.disabled = false;
+  });
+  var genErr = document.getElementById('gen-err'), genNote = document.getElementById('gen-note');
+  document.getElementById('gen-send').addEventListener('click', async function(){
+    var b = this, t = genNote.value.trim(); if (t.length < 3){ genErr.textContent = 'Write your note first.'; genNote.focus(); return; }
+    b.disabled = true; if (await post('plan_note', 'general', {note: t}, genErr)) genNote.value = ''; b.disabled = false;
   });
 
   /* check-in */
   var form = document.getElementById('checkin-form'), ckErr = document.getElementById('checkin-err');
-  var QS = {push:'Push hardest', dates:'Dates to work around', seats:'Classes to fill', news:'New to mention', avoid:"Don't push", photos:'Photos'};
+  var QS = {push:'Push hardest', dates:'Dates to work around', seats:'Classes to fill', villas:'Villa nights to fill', news:'New to mention', avoid:"Don't push", photos:'Photos'};
   form.addEventListener('submit', async function(ev){
     ev.preventDefault();
     var fd = new FormData(form), answers = {}, any = false;
@@ -389,12 +408,15 @@ html{scroll-behavior:smooth}
   /* render responses */
   function render(){
     var mine = responses.filter(function(r){ return party === 'tse' || r.party === 'client'; });
-    var hp = document.getElementById('hist-plan'); hp.innerHTML = '';
-    mine.filter(function(r){ return r.item === 'plan'; }).forEach(function(r){
-      var d = el('div', r.kind === 'plan_ok' ? 'a' : 'c');
-      d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
-      d.appendChild(el('span', '', r.kind === 'plan_ok' ? r.name + ' said the plan looks good' : r.name + ': ' + ((r.body && r.body.note) || '')));
-      hp.appendChild(d);
+    [['plan','hist-plan'],['general','hist-general']].forEach(function(x){
+      var hp = document.getElementById(x[1]); hp.innerHTML = '';
+      mine.filter(function(r){ return r.item === x[0]; }).forEach(function(r){
+        var note = (r.body && r.body.note) || '';
+        var d = el('div', r.kind === 'plan_ok' ? 'a' : 'c');
+        d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
+        d.appendChild(el('span', '', r.kind === 'plan_ok' ? r.name + ' said the plan looks good' + (note && note !== 'Plan looks good' ? ': ' + note : '') : r.name + ': ' + note));
+        hp.appendChild(d);
+      });
     });
     var ck = mine.filter(function(r){ return r.kind === 'checkin'; }).pop();
     var cs = document.getElementById('checkin-saved');
@@ -407,13 +429,13 @@ html{scroll-behavior:smooth}
       rs.forEach(function(r){
         var d = el('div', r.kind === 'approve' ? 'a' : 'c');
         d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
-        d.appendChild(el('span', '', r.kind === 'approve' ? 'Approved by ' + r.name : r.name + ' asked for changes: ' + ((r.body && r.body.note) || '')));
+        var nt = (r.body && r.body.note) || ''; d.appendChild(el('span', '', r.kind === 'approve' ? 'Approved by ' + r.name + (nt ? ', with a note: ' + nt : '') : r.name + ' sent notes: ' + nt));
         h.appendChild(d);
       });
       var last = rs[rs.length - 1];
       if (!last){ st.className = 'tag wait'; st.textContent = 'Draft for your OK'; }
-      else if (last.kind === 'approve'){ st.className = 'tag ok'; st.textContent = 'Approved'; }
-      else { st.className = 'tag warn'; st.textContent = 'Changes asked for'; }
+      else if (last.kind === 'approve'){ st.className = 'tag ok'; st.textContent = (last.body && last.body.note) ? 'Approved with a note' : 'Approved'; }
+      else { st.className = 'tag warn'; st.textContent = 'Notes sent'; }
     });
   }
 
