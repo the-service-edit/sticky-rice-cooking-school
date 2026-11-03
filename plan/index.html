@@ -286,6 +286,8 @@ html{scroll-behavior:smooth}
   async function post(kind, item, body, errEl){
     var name = needName(errEl); if (!name) return false;
     errEl.textContent = '';
+    var prev = statusText.textContent, prevS = statusEl.dataset.s;
+    setStatus('wait', 'Saving…');
     try{
       var r = await fetch(EP + '/r', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:PLAN, k:key, kind:kind, item:item, name:name, body:body})});
       var j = await r.json().catch(function(){ return {}; });
@@ -293,6 +295,7 @@ html{scroll-behavior:smooth}
       await load();
       return true;
     }catch(e){
+      setStatus(prevS, prev);
       errEl.textContent = "That didn't save. Check your connection and try again, or email hello@theserviceedit.com.";
       return false;
     }
@@ -337,7 +340,7 @@ html{scroll-behavior:smooth}
     var err = el('div', 'err'); err.setAttribute('role', 'alert'); resp.appendChild(err);
     c.appendChild(resp);
     var hist = el('div', 'history'); hist.dataset.item = m.id; c.appendChild(hist);
-    ba.addEventListener('click', async function(){ ba.disabled = true; await post('approve', m.id, {label: m.title}, err); ba.disabled = false; });
+    ba.addEventListener('click', async function(){ ba.disabled = true; ba.textContent = 'Saving…'; await post('approve', m.id, {label: m.title}, err); ba.textContent = 'Approve'; ba.disabled = false; });
     bc.addEventListener('click', function(){ var open = box.hidden; box.hidden = !open; box.style.display = open ? 'block' : 'none'; bc.setAttribute('aria-expanded', String(open)); if (open) ta.focus(); });
     bs.addEventListener('click', async function(){
       var t = ta.value.trim(); if (t.length < 3){ err.textContent = 'Tell me what to change first.'; return; }
@@ -368,8 +371,9 @@ html{scroll-behavior:smooth}
     var fd = new FormData(form), answers = {}, any = false;
     Object.keys(QS).forEach(function(k){ var v = String(fd.get(k) || '').trim(); if (v){ answers[QS[k]] = v; any = true; } });
     if (!any){ ckErr.textContent = 'Answer at least one question first.'; return; }
-    var b = document.getElementById('checkin-send'); b.disabled = true;
-    await post('checkin', 'checkin', {answers: answers}, ckErr);
+    var b = document.getElementById('checkin-send'); b.disabled = true; b.textContent = 'Sending…';
+    var ok = await post('checkin', 'checkin', {answers: answers}, ckErr);
+    if (!ok) b.textContent = 'Send my answers';
     b.disabled = false;
   });
   function fillCheckin(ans){
