@@ -173,8 +173,8 @@ html{scroll-behavior:smooth}
     </div>
     <div class="send">
       <div class="when"><b>Sun 30 Nov</b>proposed</div>
-      <div><h3>Start the year in the Hills</h3><div class="goal">January classes and midweek stays</div><span class="tag wait" style="margin-top:6px">School + villas</span></div>
-      <div class="angle">January's class calendar, plus midweek villa escapes for the quiet weeks after the holidays.<span>Goes to: Your opted-in list</span></div>
+      <div><h3>Gift a class for the new year</h3><div class="goal">Vouchers to use when classes return</div><span class="tag plain" style="margin-top:6px">School</span></div>
+      <div class="angle">Christmas is when they open it, January is when they use it. Class vouchers from $185, emailed straight away.<span>Goes to: Your opted-in list</span></div>
     </div>
   </div>
   <p class="note">Coming in December: four more sends built around your voucher cut-offs and the last classes of the year. If the villas are open over the class break, one of them will be about filling those nights.</p>
@@ -201,7 +201,7 @@ html{scroll-behavior:smooth}
           <label class="choice"><input type="radio" name="push" value="Filling this year's classes"><span>Filling this year's classes</span></label>
           <label class="choice"><input type="radio" name="push" value="Villa stays"><span>Villa stays</span></label>
           <label class="choice"><input type="radio" name="push" value="Cook and Stay packages"><span>Cook and Stay packages</span></label>
-          <label class="choice"><input type="radio" name="push" value="January classes"><span>January classes</span></label>
+          <label class="choice"><input type="radio" name="push" value="New year class vouchers"><span>New year class vouchers</span></label>
         </div>
       </fieldset>
       <label for="q-dates">Any dates I need to work around?<small>Voucher postage cut-off, your last class before the break, whether the villas stay open over the break.</small><textarea id="q-dates" name="dates"></textarea></label>
@@ -233,7 +233,7 @@ html{scroll-behavior:smooth}
       <tr><td>Christmas vouchers</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
       <tr><td>Last seats this year</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
       <tr><td>The bigger gift</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
-      <tr><td>Start the year in the Hills</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Gift a class for the new year</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -267,14 +267,14 @@ html{scroll-behavior:smooth}
     {id:'last-seats', kicker:'Tue 18 Nov', title:'Last seats this year', file:'e-last-seats.html',
      subject:'Last seats in November', preheader:'Here is what is left in November, and what is new for January.',
      audience:'Your opted-in list', when:'Tue 18 Nov, proposed',
-     flag:'Classes and seat counts are refreshed from your booking page the day before this goes out. The January dates move to the 30 Nov email.'},
+     flag:'Classes and seat counts are refreshed from your booking page the day before this goes out.'},
     {id:'bigger-gift', kicker:'Tue 25 Nov', title:'The bigger gift', file:'e-bigger-gift.html',
      subject:'Give them a night away', preheader:'A class for two, a bottle on arrival and a night in a MICHELIN Key villa, from $875 per couple.',
      audience:'Your opted-in list', when:'Tue 25 Nov, proposed'},
-    {id:'january', kicker:'Sun 30 Nov', title:'Start the year in the Hills', file:'e-january.html',
-     subject:'Start the year in the Hills', preheader:'January classes are open to book, plus midweek villa stays from $575.',
+    {id:'new-year-gift', kicker:'Sun 30 Nov', title:'Gift a class for the new year', file:'e-new-year-gift.html',
+     subject:'The gift they get to use in January', preheader:'Classes are back from 15 January. Vouchers from $185, emailed straight away.',
      audience:'Your opted-in list', when:'Sun 30 Nov, proposed',
-     flag:'Class dates and seats are checked against your booking page again before this goes out.'}
+     flag:'The January classes shown are checked against your booking page again before this goes out.'}
   ];
 
   var q = new URLSearchParams(location.search);
