@@ -82,20 +82,46 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .whoami label{flex:1 1 240px}
 .ro .respond{display:none!important}
 /* emails */
-.emails{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
-.ecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0;display:grid;gap:14px}
-.ecard .k{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:8px;align-items:center}
-.ecard h3{margin:0;font-size:20px;letter-spacing:-.02em;line-height:1.2}
-.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0}
+.emails{display:grid;gap:28px}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0;display:grid;gap:18px}
+.ecard .k{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ehead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.ehead > div{display:grid;gap:8px;min-width:0}
+.ecard h3{margin:0;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+.readb{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.readb svg{width:16px;height:16px;flex:none}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0;max-width:760px}
 .meta dt{color:var(--mute)}
 .meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
-.viewer{background:#111;border-radius:30px;padding:10px;overflow:hidden}
-.viewer .frame{width:100%;height:640px;overflow:hidden;border-radius:22px;background:#fff;position:relative}
-.viewer iframe{display:block;border:0;background:#fff;transform-origin:0 0;height:640px;width:100%}
-.viewer .hint{color:#bbb;font-size:12px;text-align:center;padding:8px 0 2px}
+.mocks{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+.mock{display:grid;gap:8px;min-width:0}
+.mock .lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.mock .hint{color:var(--mute);font-size:12px}
+.scr{position:relative;overflow:hidden;background:#fff}
+.scr iframe{position:absolute;top:0;left:0;border:0;background:#fff;transform-origin:0 0}
+.phone{background:#111;border-radius:40px;padding:10px;width:100%;max-width:300px;box-shadow:0 18px 40px rgba(27,21,18,.16)}
+.phone .scr{height:600px;border-radius:30px}
+.desk{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(27,21,18,.10)}
+.desk .bar{height:36px;background:var(--off);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 12px;min-width:0}
+.desk .bar i{width:10px;height:10px;border-radius:50%;background:#D6CDBD;flex:none}
+.desk .bar span{margin-left:8px;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.desk .scr{height:600px;background:#F4F4F4}
+@media (max-width:860px){.mocks{grid-template-columns:1fr}.phone{margin:0 auto}.desk .scr{height:460px}}
 .toggle{display:inline-flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}
 .toggle button{border:0;border-radius:0;background:transparent;color:var(--ink);padding:6px 12px;font-size:13px}
 .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+/* full email reader */
+#reader{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#E9E4DA;color:var(--ink)}
+#reader::backdrop{background:rgba(27,21,18,.6)}
+#reader .rhead{height:60px;background:var(--brown);color:var(--off);display:flex;align-items:center;gap:12px;padding:0 max(16px,env(safe-area-inset-left,0px))}
+#reader .rhead h2{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--off)}
+#reader .toggle{border-color:rgba(241,237,226,.35)}
+#reader .toggle button{color:var(--off)}
+#reader .toggle button[aria-pressed="true"]{background:var(--off);color:var(--ink)}
+#reader .rclose{background:var(--off);color:var(--ink);border-color:var(--off);padding:8px 16px}
+#reader .rbody{height:calc(100% - 60px);display:flex;justify-content:center;padding:16px}
+#reader iframe{display:block;border:0;background:#fff;height:100%;width:100%;border-radius:12px;box-shadow:0 18px 40px rgba(27,21,18,.18);transition:max-width .2s}
+@media (max-width:700px){#reader .toggle{display:none}#reader .rbody{padding:0}#reader iframe{border-radius:0}}
 .flag{font-size:13px;background:var(--fill);color:var(--fill-ink);border-radius:8px;padding:9px 11px}
 .history{display:grid;gap:8px;font-size:14px}
 .history div{border-left:3px solid var(--line);padding:2px 0 2px 10px}
@@ -115,7 +141,6 @@ tr:last-child td{border-bottom:0}
 .target b{font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .target span{color:var(--mute);font-size:14px}
 footer .wrap{padding-block:28px;font-size:14px;color:var(--band-text);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media (max-width:980px){.emails{grid-template-columns:1fr;max-width:460px;margin:0 auto;width:100%}}
 @media (max-width:720px){
   .steps{grid-template-columns:1fr 1fr}
   .send{grid-template-columns:1fr;gap:6px}
@@ -307,6 +332,14 @@ html{scroll-behavior:smooth}
 
 <footer class="band"><div class="wrap"><span>Mel Cox · The Service Edit · Perth, WA</span><span>hello@theserviceedit.com · theserviceedit.com</span></div></footer>
 
+<dialog id="reader" aria-labelledby="reader-title">
+  <div class="rhead">
+    <h2 id="reader-title">Email</h2>
+    <div class="toggle" role="group" aria-label="Email width"><button type="button" id="r-phone" aria-pressed="false">Phone</button><button type="button" id="r-desk" aria-pressed="true">Desktop</button></div>
+    <button type="button" class="rclose" id="r-close">Close</button>
+  </div>
+  <div class="rbody"><iframe id="r-frame" title="Full email"></iframe></div>
+</dialog>
 <script>
 (function(){
   var EP = 'https://rxwjactnfsrakpagbiit.supabase.co/functions/v1/plan';
@@ -387,31 +420,58 @@ html{scroll-behavior:smooth}
     }
   }
 
+  /* full email reader */
+  var reader = document.getElementById('reader'), rFrame = document.getElementById('r-frame'), rTitle = document.getElementById('reader-title');
+  var rPhone = document.getElementById('r-phone'), rDesk = document.getElementById('r-desk');
+  function rMode(m){ rFrame.style.maxWidth = m === 'phone' ? '390px' : '900px'; rPhone.setAttribute('aria-pressed', m === 'phone'); rDesk.setAttribute('aria-pressed', m !== 'phone'); }
+  rPhone.addEventListener('click', function(){ rMode('phone'); });
+  rDesk.addEventListener('click', function(){ rMode('desktop'); });
+  function openReader(m){
+    rTitle.textContent = m.title + ' · ' + m.subject;
+    rFrame.title = m.title + ', full email'; rFrame.src = m.file;
+    rMode(window.innerWidth < 700 ? 'phone' : 'desktop');
+    document.documentElement.style.overflow = 'hidden';
+    if (reader.showModal) reader.showModal(); else window.open(m.file, '_blank', 'noopener');
+  }
+  function closeReader(){ if (reader.open) reader.close(); }
+  document.getElementById('r-close').addEventListener('click', closeReader);
+  reader.addEventListener('close', function(){ document.documentElement.style.overflow = ''; rFrame.src = 'about:blank'; });
+  reader.addEventListener('click', function(e){ if (e.target === reader) closeReader(); });
+
   /* email cards */
   var cards = document.getElementById('email-cards');
   EMAILS.forEach(function(m){
     var c = el('article', 'ecard'); c.id = 'email-' + m.id;
-    var k = el('div', 'k'); k.appendChild(el('span', '', m.kicker)); var st = el('span', 'tag wait', 'Draft for your OK'); st.dataset.role = 'status'; k.appendChild(st); c.appendChild(k);
-    c.appendChild(el('h3', '', m.title));
+    var head = el('div', 'ehead'), hl = el('div');
+    var k = el('div', 'k'); k.appendChild(el('span', '', m.kicker)); var st = el('span', 'tag wait', 'Draft for your OK'); st.dataset.role = 'status'; k.appendChild(st); hl.appendChild(k);
+    hl.appendChild(el('h3', '', m.title)); head.appendChild(hl);
+    var rb = el('button', 'readb'); rb.type = 'button';
+    rb.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6V2h4M14 10v4h-4M2 2l5 5M14 14l-5-5"/></svg>';
+    rb.appendChild(document.createTextNode('Read the full email'));
+    rb.addEventListener('click', function(){ openReader(m); });
+    head.appendChild(rb); c.appendChild(head);
     var dl = el('dl', 'meta');
     [['Subject', m.subject], ['Preview', m.preheader], ['Goes to', m.audience], ['Sends', m.when]].forEach(function(p){ dl.appendChild(el('dt', '', p[0])); dl.appendChild(el('dd', '', p[1])); });
     c.appendChild(dl);
-    var tg = el('div', 'toggle'); tg.setAttribute('role', 'group'); tg.setAttribute('aria-label', 'Preview size');
-    var bp = el('button', '', 'Phone'), bd = el('button', '', 'Desktop'); bp.type = bd.type = 'button';
-    bp.setAttribute('aria-pressed', 'true'); bd.setAttribute('aria-pressed', 'false'); tg.appendChild(bp); tg.appendChild(bd);
-    var tr = el('div', 'row'); tr.appendChild(tg); c.appendChild(tr);
-    var v = el('div', 'viewer'), fr = el('div', 'frame'), ifr = document.createElement('iframe');
-    ifr.title = m.title + ' email preview'; ifr.loading = 'lazy'; ifr.src = m.file;
-    fr.appendChild(ifr); v.appendChild(fr); v.appendChild(el('div', 'hint', 'Scroll inside to see the whole email')); c.appendChild(v);
-    var mode = 'phone';
-    function fit(){
-      var w = fr.clientWidth, base = mode === 'desktop' ? 600 : 390;
-      if (w && w < base){ var s = w / base; ifr.style.width = base + 'px'; ifr.style.height = (640 / s) + 'px'; ifr.style.transform = 'scale(' + s + ')'; }
-      else { ifr.style.width = '100%'; ifr.style.height = '640px'; ifr.style.transform = ''; }
+    var mocks = el('div', 'mocks');
+    function mock(kind){
+      var box = el('div', 'mock'); box.appendChild(el('div', 'lbl', kind === 'phone' ? 'On a phone' : 'On a desktop'));
+      var shell = el('div', kind === 'phone' ? 'phone' : 'desk');
+      if (kind === 'desk'){ var bar = el('div', 'bar'); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('span', '', 'Sticky Rice Cooking School · ' + m.subject)); shell.appendChild(bar); }
+      var scr = el('div', 'scr'), f = document.createElement('iframe');
+      f.title = m.title + (kind === 'phone' ? ' on a phone' : ' on a desktop'); f.loading = 'lazy'; f.src = m.file;
+      scr.appendChild(f); shell.appendChild(scr); box.appendChild(shell);
+      box.appendChild(el('div', 'hint', 'Scroll inside to see the whole email.'));
+      var base = kind === 'phone' ? 390 : 900;
+      function fit(){
+        var w = scr.clientWidth, h = scr.clientHeight; if (!w) return;
+        var sc = Math.min(1, w / base);
+        f.style.width = (sc < 1 ? base : w) + 'px'; f.style.height = (h / sc) + 'px'; f.style.transform = sc < 1 ? 'scale(' + sc + ')' : '';
+      }
+      window.addEventListener('resize', fit); f.addEventListener('load', fit); requestAnimationFrame(fit);
+      return box;
     }
-    bp.addEventListener('click', function(){ mode = 'phone'; bp.setAttribute('aria-pressed','true'); bd.setAttribute('aria-pressed','false'); fit(); });
-    bd.addEventListener('click', function(){ mode = 'desktop'; bd.setAttribute('aria-pressed','true'); bp.setAttribute('aria-pressed','false'); fit(); });
-    window.addEventListener('resize', fit); ifr.addEventListener('load', fit); requestAnimationFrame(fit);
+    mocks.appendChild(mock('phone')); mocks.appendChild(mock('desk')); c.appendChild(mocks);
     if (m.flag) c.appendChild(el('div', 'flag', m.flag));
     var resp = el('div', 'respond'); resp.style.display = 'grid'; resp.style.gap = '10px';
     var lab = el('label', '', 'Notes or changes'); var ta = document.createElement('textarea'); ta.id = 'note-' + m.id;
